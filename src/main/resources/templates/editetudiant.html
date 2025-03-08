@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}"
+
+>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Nouveau Etudiant</title>
+
+
+
+</head>
+<body>
+<div layout:fragment="content">
+
+  <div class="card shadow mb-4">
+   
+    <div class="card-header py-3 bg-primary">
+      <h6 class="m-0 font-weight-bold text-white">Modifier un Étudiant</h6>
+    </div>
+
+
+    <div class="card-body">
+      <form th:action="@{/admin/updateetudiant}" method="post">
+
+        <div class="form-group mb-4">
+          <label for="id_etudiant" class="font-weight-bold">ID de l'Étudiant</label>
+          <label class="form-control bg-light shadow-sm" th:text="${etudiant.id_etudiant}"></label>
+          <input type="hidden" class="form-control" id="id_etudiant" name="id_etudiant" required th:value="${etudiant.id_etudiant}">
+          <small class="form-text text-muted">L'ID est généré automatiquement et ne peut pas être modifié.</small>
+        </div>
+
+
+        <div class="form-group mb-4">
+          <label for="cne" class="font-weight-bold">CNE de l'Étudiant</label>
+          <input type="text" class="form-control form-control-lg shadow-sm" id="cne" name="cne" required th:value="${etudiant.cne}">
+          <small class="form-text text-muted">Le CNE doit être unique.</small>
+        </div>
+
+
+        <div class="form-group mb-4">
+          <label for="nom" class="font-weight-bold">Nom de l'Étudiant</label>
+          <input type="text" class="form-control form-control-lg shadow-sm" id="nom" name="nom" required th:value="${etudiant.nom}">
+        </div>
+
+
+        <div class="form-group mb-4">
+          <label for="prenom" class="font-weight-bold">Prénom de l'Étudiant</label>
+          <input type="text" class="form-control form-control-lg shadow-sm" id="prenom" name="prenom" required th:value="${etudiant.prenom}">
+        </div>
+
+
+        <div class="form-group mb-4">
+          <label for="date_naissance" class="font-weight-bold">Date de Naissance</label>
+          <input type="date" class="form-control form-control-lg shadow-sm" id="date_naissance" name="date_naissance" required th:value="${etudiant.date_naissance}">
+        </div>
+
+
+        <div class="form-group mb-4">
+          <label for="filiere" class="font-weight-bold">Libellé de la Filière</label>
+          <select class="form-control form-control-lg shadow-sm" id="filiere" name="filiere.id_filiere" required>
+            <option value="">Sélectionnez une filière</option>
+            <option th:each="f : ${filieres}" th:value="${f.id_filiere}" th:text="${f.libelle}" th:selected="${etudiant.filiere?.id_filiere == f.id_filiere}"></option>
+          </select>
+        </div>
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">
+            <i class="fas fa-save mr-2"></i> Modifier
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+</body>
+</html>

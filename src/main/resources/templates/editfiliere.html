@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}"
+
+>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Modifier Filiere</title>
+
+
+
+</head>
+<body>
+<div layout:fragment="content">
+
+  <div class="card shadow mb-4">
+
+    <div class="card-header py-3 bg-primary">
+      <h6 class="m-0 font-weight-bold text-white">Modifier une Filière</h6>
+    </div>
+
+
+    <div class="card-body">
+      <form th:action="@{/admin/savefiliere}" method="post">
+
+        <div class="form-group mb-4">
+          <label for="id_filiere" class="font-weight-bold">ID de la Filière</label>
+          <label class="form-control bg-light shadow-sm" th:text="${filiere.id_filiere}"></label>
+          <input type="hidden" class="form-control" id="id_filiere" name="id_filiere" required th:value="${filiere.id_filiere}">
+          <small class="form-text text-muted">L'ID est généré automatiquement et ne peut pas être modifié.</small>
+        </div>
+
+
+        <div class="form-group mb-4">
+          <label for="code" class="font-weight-bold">Code de la Filière</label>
+          <input type="text" class="form-control form-control-lg shadow-sm" id="code" name="code" required th:value="${filiere.code}">
+          <small class="form-text text-muted">Le code doit être unique.</small>
+        </div>
+
+
+        <div class="form-group mb-4">
+          <label for="libelle" class="font-weight-bold">Libellé de la Filière</label>
+          <input type="text" class="form-control form-control-lg shadow-sm" id="libelle" name="libelle" required th:value="${filiere.libelle}">
+          <small class="form-text text-muted">Exemple : Informatique, Gestion, etc.</small>
+        </div>
+
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">
+            <i class="fas fa-save mr-2"></i> Enregistrer les modifications
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+</body>
+</html>

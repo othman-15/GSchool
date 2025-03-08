@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}"
+
+>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Liste Filiere</title>
+
+
+
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="card shadow mb-4">
+    <!-- Formulaire de recherche -->
+    <div class="card-header py-3 bg-primary">
+      <h6 class="m-0 font-weight-bold text-white">Rechercher une filière</h6>
+    </div>
+    <div class="card-body">
+      <form th:action="@{/user/listefiliere}" method="get" class="mb-4">
+        <div class="input-group">
+          <div class="input-group-prepend">
+                    <span class="input-group-text bg-light border-0">
+                        <i class="fas fa-search text-primary"></i>
+                    </span>
+          </div>
+          <input type="text" name="motCle" class="form-control border-0 shadow-sm" th:value="${motCle}" placeholder="Entrez libelle de la filiere..." />
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary shadow-sm">
+              <i class="fas fa-search"></i> Chercher
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tableau des filières -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3 bg-primary d-flex justify-content-between align-items-center">
+      <h6 class="m-0 font-weight-bold text-white">Listes de filières</h6>
+      <div>
+        <a class="btn btn-danger btn-sm mx-1 shadow-sm" th:href="@{export/pdf}">
+          <i class="fas fa-file-pdf"></i> Exporter en PDF
+        </a>
+        <a class="btn btn-success btn-sm shadow-sm" th:href="@{export/excel}">
+          <i class="fas fa-file-excel"></i> Exporter en Excel
+        </a>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover shadow-sm" width="100%" cellspacing="0">
+          <thead class="bg-primary text-white">
+          <tr>
+            <th>ID</th>
+            <th>CODE</th>
+            <th>LIBELLE</th>
+            <th>NOMBRE D'ETUDIANT</th>
+            <th th:if="${#authorization.expression('hasRole(''ADMIN'')')}">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="p:${listFilieres}" th:onclick="|window.location.href='@{/user/listeetudiantinfiliere(id=${p.id_filiere})}'|" style="cursor: pointer;" class="hover-shadow">
+            <td th:text="${p.id_filiere}"></td>
+            <td th:text="${p.code}"></td>
+            <td th:text="${p.libelle}"></td>
+            <td th:text="${p.getNombreEtudiants()}"></td>
+            <td class="text-center" th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+              <a class="btn btn-danger btn-sm mx-1 shadow-sm" onclick="event.stopPropagation(); return confirm('Êtes-vous sûr de vouloir supprimer cette filière ?')"
+                 th:href="@{/admin/delete(id=${p.id_filiere},size=${size},motCle=${motCle},page=${pagecourant})}">
+                <i class="fas fa-trash"></i> Supprimer
+              </a>
+              <a class="btn btn-warning btn-sm mx-1 shadow-sm" onclick="event.stopPropagation();" th:href="@{/admin/editfiliere(id=${p.id_filiere})}">
+                <i class="fas fa-edit"></i> Modifier
+              </a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <nav>
+        <ul class="pagination justify-content-center">
+
+          <li class="page-item" th:if="${pagecourant > 0}">
+            <a class="page-link shadow-sm" th:href="@{/user/listefiliere(page=${pagecourant - 1}, size=${size}, motCle=${motCle})}">
+              &laquo; Précédent
+            </a>
+          </li>
+
+
+          <li class="page-item" th:each="pa, status : ${pages}" th:classappend="${status.index == pagecourant} ? 'active' : ''">
+            <a class="page-link shadow-sm" th:href="@{/user/listefiliere(page=${status.index}, size=${size}, motCle=${motCle})}"
+               th:text="${1 + status.index}" th:classappend="${status.index == pagecourant} ? 'active' : ''">
+            </a>
+          </li>
+
+
+          <li class="page-item" th:if="${pagecourant < pages.length  - 1}">
+            <a class="page-link shadow-sm" th:href="@{/user/listefiliere(page=${pagecourant + 1}, size=${size}, motCle=${motCle})}">
+              Suivant &raquo;
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

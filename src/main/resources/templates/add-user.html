@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{template}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Nouveau Utilisateur</title>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <div class="card shadow mb-4">
+
+        <div class="card-header py-3 bg-primary">
+            <h6 class="m-0 font-weight-bold text-white">Ajouter un Utilisateur</h6>
+        </div>
+
+        <div class="card-body">
+
+            <form th:action="@{/addUser}" method="post">
+
+
+                <div th:if="${error}" class="alert alert-danger" role="alert">
+                    <p th:text="${error}"></p>
+                </div>
+
+
+                <div th:if="${message}" class="alert alert-success" role="alert">
+                    <p th:text="${message}"></p>
+                </div>
+
+
+                <div class="form-group mb-4">
+                    <label for="username" class="font-weight-bold">Nom d'utilisateur</label>
+                    <input type="text" class="form-control form-control-lg shadow-sm" id="username"
+                           name="username" required th:value="${appUser?.username}">
+                </div>
+
+
+                <div class="form-group mb-4">
+                    <label for="password" class="font-weight-bold">Mot de passe</label>
+                    <input type="password" class="form-control form-control-lg shadow-sm" id="password"
+                           name="password" required>
+                </div>
+
+
+                <div class="form-group mb-4">
+                    <label for="confirmPassword" class="font-weight-bold">Confirmer le mot de passe</label>
+                    <input type="password" class="form-control form-control-lg shadow-sm" id="confirmPassword"
+                           name="confirmPassword" required>
+                </div>
+
+
+                <div class="form-group mb-4">
+                    <label for="roles" class="font-weight-bold">Rôles</label>
+                    <select multiple class="form-control form-control-lg shadow-sm" id="roles" name="roles">
+                        <option th:each="r : ${roles}" th:value="${r.role}" th:text="${r.role}"
+                                th:selected="${appUser?.roles != null && #sets.contains(appUser.roles.![role], r.role)}">
+                        </option>
+                    </select>
+                    <small class="form-text text-muted">Maintenez la touche Ctrl (ou Cmd sur Mac) pour sélectionner plusieurs rôles.</small>
+                </div>
+
+
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-lg btn-block shadow-sm">
+                        <i class="fas fa-plus-circle mr-2"></i> Ajouter
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

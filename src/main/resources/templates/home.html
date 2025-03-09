@@ -2,9 +2,8 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{template}"
+      layout:decorate="~{template}">
 
->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,28 +14,144 @@
   <title>Tableau de bord</title>
   <script th:src="@{/vendor/da2.js}"></script>
 
+  <style>
+
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+    }
 
 
+    .icon-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 1.5rem;
+    }
+
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
 </head>
+
 <body>
 <div layout:fragment="content">
-  <!-- Éléments pour stocker les données Thymeleaf -->
+
   <div id="chart-data"
        th:data-filieres="${filieres}"
        th:data-nombre-etudiants="${nombreEtudiants}"
        style="display: none;">
   </div>
 
-
-
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">Tableau de bord</h1>
     </div>
 
+
     <div class="row">
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow">
+          <div class="card-header py-3 bg-primary text-white">
+            <h6 class="m-0 font-weight-bold">Nombre total d'étudiants</h6>
+          </div>
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-circle mr-3">
+              <i class="fas fa-users"></i>
+            </div>
+            <div>
+              <h2 class="text-primary" th:text="${e}"></h2>
+              <p class="mb-0">Étudiants inscrits</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow">
+          <div class="card-header py-3 bg-success text-white">
+            <h6 class="m-0 font-weight-bold">Nombre de filières</h6>
+          </div>
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-circle mr-3">
+              <i class="fas fa-book"></i>
+            </div>
+            <div>
+              <h2 class="text-success" th:text="${f}"></h2>
+              <p class="mb-0">Filières disponibles</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow">
+          <div class="card-header py-3 bg-warning text-white">
+            <h6 class="m-0 font-weight-bold">Nombre de professeurs</h6>
+          </div>
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-circle mr-3">
+              <i class="fas fa-chalkboard-teacher"></i>
+            </div>
+            <div>
+              <h2 class="text-warning">24</h2>
+              <p class="mb-0">Professeurs actifs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card shadow">
+          <div class="card-header py-3 bg-danger text-white">
+            <h6 class="m-0 font-weight-bold">Taux de réussite</h6>
+          </div>
+          <div class="card-body d-flex align-items-center">
+            <div class="icon-circle mr-3">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+              <h2 class="text-danger">85%</h2>
+              <p class="mb-0">Taux de réussite moyen</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+
       <div class="col-xl-6 col-md-6 mb-4">
-        <div class="card shadow mb-4">
+        <div class="card shadow">
           <div class="card-header py-3 bg-primary text-white">
             <h6 class="m-0 font-weight-bold">Répartition des Filières</h6>
           </div>
@@ -46,8 +161,9 @@
         </div>
       </div>
 
+
       <div class="col-xl-6 col-md-6 mb-4">
-        <div class="card shadow mb-4">
+        <div class="card shadow">
           <div class="card-header py-3 bg-primary text-white">
             <h6 class="m-0 font-weight-bold">Nombre des Étudiants par Filière</h6>
           </div>
@@ -58,11 +174,7 @@
       </div>
     </div>
   </div>
-
-
-
 </div>
-
 
 </body>
 </html>

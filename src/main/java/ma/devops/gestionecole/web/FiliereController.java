@@ -3,7 +3,9 @@ package ma.devops.gestionecole.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import ma.devops.gestionecole.entities.Etudiant;
 import ma.devops.gestionecole.entities.Filiere;
+import ma.devops.gestionecole.repository.EtudiantRepository;
 import ma.devops.gestionecole.repository.FiliereRepository;
 import ma.devops.gestionecole.services.ExportService;
 import org.springframework.data.domain.Page;
@@ -24,7 +26,7 @@ import java.util.stream.Collectors;
 public class FiliereController {
     private FiliereRepository filiereRepository;
     private final ExportService exportService;
-
+    private EtudiantRepository etudiantRepository;
     @GetMapping("/user/listefiliere")
     public String listefiliere(Model model, @RequestParam(name = "page", defaultValue = "0") int p,
                         @RequestParam(name = "size", defaultValue = "7") int s,
@@ -45,9 +47,11 @@ public class FiliereController {
     @GetMapping("/user/home")
     public String dashboard(Model model) {
         List<Filiere> filieres = filiereRepository.findAll();
+        List<Etudiant> nbretu = etudiantRepository.findAll();
         List<String> filiereNames = filieres.stream().map(Filiere::getLibelle).collect(Collectors.toList());
         List<Integer> nombreEtudiants = filieres.stream().map(Filiere::getNombreEtudiants).collect(Collectors.toList());
-
+        model.addAttribute("f",filieres.size());
+        model.addAttribute("e",nbretu.size());
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             model.addAttribute("filieres", objectMapper.writeValueAsString(filiereNames));

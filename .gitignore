@@ -40,3 +40,8 @@ dist/
 aot/
 *.tgz
 *.tar.gz
+
+
+# Logs
+logs/
+*.log

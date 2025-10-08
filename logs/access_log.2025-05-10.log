@@ -1,0 +1,9 @@
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /index HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /login HTTP/1.1" 200 6107
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /vendor/jquery-easing/jquery.easing.min.js HTTP/1.1" 200 2532
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /vendor/fontawesome-free/css/all.min.css HTTP/1.1" 200 59344
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /js/sb-admin-2.min.js HTTP/1.1" 200 1265
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /css/sb-admin-2.min.css HTTP/1.1" 200 170737
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /vendor/jquery/jquery.min.js HTTP/1.1" 200 89501
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:39 +0100] "GET /vendor/bootstrap/js/bootstrap.bundle.min.js HTTP/1.1" 200 84378
+0:0:0:0:0:0:0:1 - - [10/May/2025:17:34:40 +0100] "GET /vendor/fontawesome-free/webfonts/fa-brands-400.woff2 HTTP/1.1" 200 76764

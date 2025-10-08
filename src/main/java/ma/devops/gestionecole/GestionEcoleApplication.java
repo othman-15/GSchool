@@ -99,7 +99,7 @@ public class GestionEcoleApplication {
 
         };
     }
-    //@Bean
+   @Bean
     CommandLineRunner commandLineRunnerUserDetails(AccountService accountService) {
         return args -> {
             accountService.addNewRole("USER");

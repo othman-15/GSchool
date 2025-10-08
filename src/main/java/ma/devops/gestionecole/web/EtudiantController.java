@@ -7,6 +7,8 @@ import ma.devops.gestionecole.entities.Filiere;
 import ma.devops.gestionecole.repository.EtudiantRepository;
 import ma.devops.gestionecole.repository.FiliereRepository;
 import ma.devops.gestionecole.services.ExportService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
@@ -26,12 +28,14 @@ public class EtudiantController {
     private final ExportService exportService;
     private EtudiantRepository etudiantRepository;
     private FiliereRepository filiereRepository;
+    private static final Logger logger = LoggerFactory.getLogger(EtudiantController.class);
 
 
     @GetMapping("/user/listetudiant")
     public String listetudiant(Model model, @RequestParam(name = "page", defaultValue = "0") int p,
                                @RequestParam(name = "size", defaultValue = "5") int s,
                                @RequestParam(name = "motCle", defaultValue = "") String mc) {
+        logger.info("Requête GET /etudiants reçue");
 
         Page<Etudiant> pageetudiants = etudiantRepository.chercher("%" + mc + "%", PageRequest.of(p, s));
         model.addAttribute("listetudiant", pageetudiants.getContent());

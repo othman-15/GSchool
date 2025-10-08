@@ -33,7 +33,7 @@ build/
 .vscode/
 
 
-logs/
+logs
 *.log
 dist/
 aot/

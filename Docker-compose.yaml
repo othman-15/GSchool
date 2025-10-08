@@ -1,0 +1,43 @@
+
+services:
+  mysql-db:
+    image: mysql:8.0
+    container_name: mysql-db2
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword123
+      MYSQL_DATABASE: Gestion-ecole
+      MYSQL_PASSWORD: rootpassword123
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  spring-app:
+    build: .
+    container_name: spring-thymeleaf-app
+    ports:
+      - "8012:8089"
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      - DB_URL=jdbc:mysql://mysql-db:3306/Gestion-ecole?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=rootpassword123
+
+    networks:
+      - app-network
+
+volumes:
+  mysql_data:
+
+networks:
+  app-network:
+    driver: bridge
